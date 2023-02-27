@@ -125,11 +125,11 @@ def chat_group(request, group_id):
             message.sender = request.user
             message.group = group
             message.save()
-            return redirect('group_detail', group_id=group_id)
+            return redirect('chat/group_detail', group_id=group_id)
     else:
         form = MessageForm()
     reaction_form = ReactionForm()
-    return render(request, 'group_detail.html', {'group': group, 'messages': messages, 'reactions': reactions, 'form': form, 'reaction_form': reaction_form})
+    return render(request, 'chat/group_detail.html', {'group': group, 'messages': messages, 'reactions': reactions, 'form': form, 'reaction_form': reaction_form})
 
 @login_required(login_url="/login")
 def send_message(request, group_id):
