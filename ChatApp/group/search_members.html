@@ -1,0 +1,20 @@
+{% extends 'main/base.html' %}
+{% block title %}{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h2>Search Members</h2>
+<form method="post">
+  {% csrf_token %}
+  <label for="query">Search:</label>
+  <input type="text" name="query">
+  <button type="submit">Search</button>
+</form>
+{% if members %}
+<p>Results:</p>
+<ul>
+  {% for member in members %}
+  <li>{{ member.username }} <a href="{% url 'add_member' group_id=group.id member_id=member.id %}">Add</a></li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

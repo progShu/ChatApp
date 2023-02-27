@@ -1,0 +1,16 @@
+{% extends 'main/base.html' %}
+{% block title %}{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h2>Group Detail</h2>
+<h3>{{ group.name }}</h3>
+<p>Members:</p>
+<ul>
+  {% for member in members %}
+  <li>{{ member.username }}</li>
+  {% endfor %}
+</ul>
+<a href="{% url 'search_members' %}">Add Members</a>
+<br>
+<a href="{% url 'delete_group' group.id %}">Delete Group</a>
+{% endblock %}

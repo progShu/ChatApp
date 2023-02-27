@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
-from .models import Message, ChatGroup
+from .models import Message, ChatGroup, Reaction
 
 
 class UpdateForm(UserChangeForm):
@@ -11,15 +11,17 @@ class UpdateForm(UserChangeForm):
         model = User
         fields = ["username","email", "first_name"]
 
+class ChatGroupForm(forms.ModelForm):
+    class Meta:
+        model = ChatGroup
+        fields = ['name', 'description', 'members']
 
 class MessageForm(forms.ModelForm):
     class Meta:
         model = Message
-        fields = ["message"]
+        fields = ["text"]
 
-class CreateGroupForm(forms.ModelForm):
-    name = forms.CharField(required=True)
-
+class ReactionForm(forms.ModelForm):
     class Meta:
-        model = ChatGroup
-        fields = ["name"]
+        model = Reaction
+        fields = ['emoji']
