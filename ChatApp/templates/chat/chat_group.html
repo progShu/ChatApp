@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+{% block title %}{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h1>{{ group.name }}</h1>
+  <ul>
+    {% for message in messages %}
+      <li>
+        <strong>{{ message.sender }}</strong> ({{ message.timestamp }}): {{ message.text }}
+        <form action="{% url 'add_reaction' message.id %}" method="post">
+            {% csrf_token %}
+            {{ reaction_form.as_p }}
+            <button type="submit">React</button>
+        </form>
+        {% for reaction in reactions %}
+          {% if reaction.message.id == message.id %}
+            <span>{{ reaction.emoji }}</span>
+          {% endif %}
+        {% endfor %}
+      </li>
+    {% endfor %}
+  </ul>
+
+  <form action="{% url 'send_message' group_id=group.id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Send</button>
+  </form>
+{% endblock %}

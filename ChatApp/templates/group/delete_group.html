@@ -1,0 +1,12 @@
+{% extends 'main/base.html' %}
+{% block title %}{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h2>Delete Group</h2>
+<p>Are you sure you want to delete "{{ group.name }}"?</p>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Delete</button>
+  <a href="{% url 'group_detail' group.id %}">Cancel</a>
+</form>
+{% endblock %}
